@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #chart-container {
+            width: 100%;
+            overflow-x: scroll;
+        }
+
+        #chart-image {
+            display: block;
+            width: 100%;
+        }
+
+        #background {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 200px;
+            background-image: url("background.png");
+            background-size: cover;
+            margin: auto;
+        }
+
+        #circle {
+            position: fixed;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%) rotate(0);
+            width: 200px;
+            height: 200px;
+            background-image: url("circle.png");
+            background-size: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chart-container">
+        <img src="article.jpg" alt="Chart" id="chart-image">
+    </div>
+    <div id="background"></div>
+    <div id="circle"></div>
+
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            const chartContainer = document.querySelector('.chart-container');
+            const chartImage = document.querySelector('#chart-image');
+            const circle = document.querySelector('#circle');
+            let totalScrollDistance = 0;
+
+            chartContainer.addEventListener('wheel', function (event) {
+                chartContainer.scrollLeft += event.deltaY;
+                totalScrollDistance += event.deltaY;
+                rotateCircle(totalScrollDistance);
+            });
+
+            function rotateCircle(scrollDistance) {
+                const rotationAngle = scrollDistance * 0.1;
+                circle.style.transform = `translateX(-50%) rotate(${rotationAngle}deg)`;
+            }
+        });
+
+    </script>
+</body>
+
+</html>
